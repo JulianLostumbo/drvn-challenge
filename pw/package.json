@@ -1,0 +1,25 @@
+{
+  "name": "pw",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test":  "npx cucumber-js",
+    "codegen": "playwright codegen https://www.saucedemo.com",
+    "test:smoke": "npx cucumber-js --tags @smoke",
+    "test:regression": "npx cucumber-js --tags @regression",
+    "report": "node report.js",
+    "test:report": "npx cucumber-js --format json:reports/cucumber_report.json && node report.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@cucumber/cucumber": "^9.0.0",
+    "@playwright/test": "^1.55.0",
+    "@types/node": "^24.5.2",
+    "multiple-cucumber-html-reporter": "^3.9.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  }
+}
