@@ -1,9 +1,8 @@
-import { Page, Locator } from 'playwright';
+import { Page, Locator, expect } from '@playwright/test';
 
 export class ConfirmationPage {
   private page: Page;
-
-  private confirmationHeader: Locator;
+  readonly confirmationHeader: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -11,6 +10,7 @@ export class ConfirmationPage {
   }
 
   async getConfirmationMessage(): Promise<string | null> {
+    await expect(this.confirmationHeader).toBeVisible();
     return this.confirmationHeader.textContent();
   }
 }

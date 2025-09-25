@@ -11,6 +11,5 @@ Feature: Checkout Flow
 @regression
   Scenario: Form validation shows error when Postal Code is missing
     Given I am at the checkout information page
-    When I leave the Postal Code field empty
-    And I click Continue
+    When I leave the Postal Code field empty and click Continue
     Then I see an error message about the missing field

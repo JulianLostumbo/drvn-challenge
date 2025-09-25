@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test":  "npx cucumber-js",
+    "test": "npx cucumber-js",
     "codegen": "playwright codegen https://www.saucedemo.com",
     "test:smoke": "npx cucumber-js --tags @smoke",
     "test:regression": "npx cucumber-js --tags @regression",
+    "test:flaky": "npx cucumber-js --tags @flaky --retry 2",
     "report": "node report.js",
     "test:report": "npx cucumber-js --format json:reports/cucumber_report.json && node report.js"
   },
@@ -18,6 +19,7 @@
     "@cucumber/cucumber": "^9.0.0",
     "@playwright/test": "^1.55.0",
     "@types/node": "^24.5.2",
+    "dotenv": "^17.2.2",
     "multiple-cucumber-html-reporter": "^3.9.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"

@@ -1,8 +1,7 @@
-import { Page, Locator } from 'playwright';
+import { Page, Locator, expect } from '@playwright/test';
 
 export class CartPage {
   private page: Page;
-
   private checkoutButton: Locator;
 
   constructor(page: Page) {
@@ -11,6 +10,7 @@ export class CartPage {
   }
 
   async clickCheckout(): Promise<void> {
+    await expect(this.checkoutButton).toBeEnabled();
     await this.checkoutButton.click();
   }
 }

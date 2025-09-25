@@ -1,4 +1,4 @@
-import { Page, Locator } from 'playwright';
+import { Page, Locator, expect } from '@playwright/test';
 
 export class CheckoutPage {
   private page: Page;
@@ -21,17 +21,24 @@ export class CheckoutPage {
   }
 
   async fillInformation(first: string, last: string, postal: string): Promise<void> {
+    await expect(this.firstNameInput).toBeVisible();
     await this.firstNameInput.fill(first);
+
+    await expect(this.lastNameInput).toBeVisible();
     await this.lastNameInput.fill(last);
+
+    await expect(this.postalCodeInput).toBeVisible();
     await this.postalCodeInput.fill(postal);
   }
 
   async clickContinue(): Promise<void> {
+    await expect(this.continueButton).toBeEnabled();
     await this.continueButton.click();
   }
 
   async completeCheckout(): Promise<void> {
     await this.clickContinue();
+    await expect(this.finishButton).toBeEnabled();
     await this.finishButton.click();
   }
 
