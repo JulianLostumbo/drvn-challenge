@@ -21,18 +21,14 @@ After(async () => {
 });
 
 Given('I open the login page', { timeout: 15000 }, async () => {
-  await page.pause();
   await loginPage.goto();
 });
 
 When('I log in with {string} and {string}', async (username: string, password: string) => {
-  await page.pause();  
   await loginPage.login(username, password);
 });
 
 Then('I land on the inventory page and see at least one product', async () => {
-  await page.pause();  
-  
   await expect(page).toHaveURL(/.*inventory.html/);
 
   const visible = await inventoryPage.isProductVisible();

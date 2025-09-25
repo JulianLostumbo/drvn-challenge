@@ -31,13 +31,11 @@ After(async () => {
 });
 
 Given('I am logged in as a {string}', {timeout: 15000}, async (userType: string) => {
-  await page.pause();  
   await loginPage.goto();
   await loginPage.login(userType === 'standard user' ? 'standard_user' : 'locked_out_user', 'secret_sauce');
 });
 
 Given('I am at the checkout information page', {timeout: 15000}, async () => {
-  await page.pause();  
   await loginPage.goto();
   await loginPage.login('standard_user', 'secret_sauce');
   await inventoryPage.addFirstProductToCart();
@@ -46,41 +44,31 @@ Given('I am at the checkout information page', {timeout: 15000}, async () => {
 });
 
 When('I add any product to the cart', async () => {
-  await page.pause();  
   await inventoryPage.addFirstProductToCart();
   await inventoryPage.goToCart();
   await cartPage.clickCheckout();
 });
 
 When('I fill First Name, Last Name, Postal Code with any valid values', async () => {
-  await page.pause();  
   await checkoutPage.fillInformation('Juli', 'Lostumbo', '12345');
 });
 
 When('I complete the checkout', async () => {
-  await page.pause();  
   await checkoutPage.completeCheckout();
 });
 
-When('I leave the Postal Code field empty', async () => {
-  await page.pause();  
+When('I leave the Postal Code field empty and click Continue', async () => {
   await checkoutPage.fillInformation('Juli', 'Lostumbo', '');
-});
-
-When('I click Continue', async () => {
-  await page.pause();  
   await checkoutPage.clickContinue();
 });
 
 Then('I see {string} confirmation', async (expectedMessage: string) => {
-  await page.pause();  
   const message = await confirmationPage.getConfirmationMessage();
   await expect(message).not.toBeNull();
   await expect(message!).toContain(expectedMessage);
 });
 
 Then('I see an error message about the missing field', async () => {
-  await page.pause();
   await expect(checkoutPage.errorMessage).toBeVisible();
 
   await expect(checkoutPage.errorMessage).toHaveText(/Postal Code is required/);

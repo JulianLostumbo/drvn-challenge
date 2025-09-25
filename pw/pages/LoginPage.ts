@@ -1,9 +1,7 @@
-import { Page, Locator } from 'playwright';
+import { Page, Locator, expect } from '@playwright/test';
 
 export class LoginPage {
   private page: Page;
-
-  private static readonly BASE_URL = 'https://www.saucedemo.com';
 
   private usernameInput: Locator;
   private passwordInput: Locator;
@@ -17,13 +15,20 @@ export class LoginPage {
   }
 
   async goto(): Promise<void> {
-    await this.page.goto(LoginPage.BASE_URL);
+    const baseUrl = process.env.BASE_URL || 'https://www.saucedemo.com';
+    await this.page.goto(baseUrl);
     await this.page.waitForLoadState('domcontentloaded');
+    await expect(this.usernameInput).toBeVisible();
   }
 
   async login(username: string, password: string): Promise<void> {
+    await expect(this.usernameInput).toBeVisible();
     await this.usernameInput.fill(username);
+
+    await expect(this.passwordInput).toBeVisible();
     await this.passwordInput.fill(password);
+
+    await expect(this.loginButton).toBeEnabled();
     await this.loginButton.click();
   }
 }
