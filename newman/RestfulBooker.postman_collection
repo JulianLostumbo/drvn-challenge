@@ -38,6 +38,45 @@
 						"packages": {},
 						"requests": {}
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Generate random strings\r",
+							"const firstNames = [\"Julian\", \"Marco\", \"Miguel\", \"Walter\", \"David\"];\r",
+							"const lastNames = [\"Lostumbo\", \"Ruben\", \"Russo\", \"White\", \"Garcia\"];\r",
+							"const needs = [\"Breakfast\", \"Lunch\", \"Dinner\", \"None\"];\r",
+							"\r",
+							"pm.variables.set(\"firstname\", firstNames[Math.floor(Math.random() * firstNames.length)]);\r",
+							"pm.variables.set(\"lastname\", lastNames[Math.floor(Math.random() * lastNames.length)]);\r",
+							"pm.variables.set(\"additionalneeds\", needs[Math.floor(Math.random() * needs.length)]);\r",
+							"\r",
+							"// Random total price (100 to 500)\r",
+							"pm.variables.set(\"totalprice\", Math.floor(Math.random() * 400) + 100);\r",
+							"\r",
+							"// Random boolean\r",
+							"pm.variables.set(\"depositpaid\", Math.random() < 0.5);\r",
+							"\r",
+							"// Checkin today + 1 to 5 days, checkout + 6 to 10 days\r",
+							"let today = new Date();\r",
+							"let checkin = new Date(today);\r",
+							"checkin.setDate(today.getDate() + Math.floor(Math.random() * 5) + 1);\r",
+							"\r",
+							"let checkout = new Date(today);\r",
+							"checkout.setDate(today.getDate() + Math.floor(Math.random() * 10) + 6);\r",
+							"\r",
+							"function formatDate(date) {\r",
+							"    return date.toISOString().split('T')[0];\r",
+							"}\r",
+							"\r",
+							"pm.variables.set(\"checkin\", formatDate(checkin));\r",
+							"pm.variables.set(\"checkout\", formatDate(checkout));"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
 				}
 			],
 			"request": {
@@ -51,7 +90,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"firstname\": \"New Julian\",\n    \"lastname\": \"Lostumbo\",\n    \"totalprice\": 100,\n    \"depositpaid\": true,\n    \"bookingdates\": {\n        \"checkin\": \"2025-06-01\",\n        \"checkout\": \"2025-06-07\"\n    },\n    \"additionalneeds\": \"Breakfast\"\n}",
+					"raw": "{\n  \"firstname\": \"{{firstname}}\",\n  \"lastname\": \"{{lastname}}\",\n  \"totalprice\": {{totalprice}},\n  \"depositpaid\": {{depositpaid}},\n  \"bookingdates\": {\n    \"checkin\": \"{{checkin}}\",\n    \"checkout\": \"{{checkout}}\"\n  },\n  \"additionalneeds\": \"{{additionalneeds}}\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -80,12 +119,50 @@
 						"exec": [
 							"pm.test(\"Status is not 2xx\", () => {",
 							"  pm.expect(pm.response.code).to.not.be.within(200, 299);",
+							"  pm.response.to.have.status(500);",
 							"});",
 							"",
 							"pm.test(\"Response contains error or invalid schema\", () => {",
 							"  const text = pm.response.text();",
 							"  pm.expect(text).to.not.eql(\"\");",
 							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Generate random strings\r",
+							"const lastNames = [\"Lostumbo\", \"Ruben\", \"Russo\", \"White\", \"Garcia\"];\r",
+							"const needs = [\"Breakfast\", \"Lunch\", \"Dinner\", \"None\"];\r",
+							"\r",
+							"pm.variables.set(\"lastname\", lastNames[Math.floor(Math.random() * lastNames.length)]);\r",
+							"pm.variables.set(\"additionalneeds\", needs[Math.floor(Math.random() * needs.length)]);\r",
+							"\r",
+							"// Random total price (100 to 500)\r",
+							"pm.variables.set(\"totalprice\", Math.floor(Math.random() * 400) + 100);\r",
+							"\r",
+							"// Random boolean\r",
+							"pm.variables.set(\"depositpaid\", Math.random() < 0.5);\r",
+							"\r",
+							"// Checkin today + 1 to 5 days, checkout + 6 to 10 days\r",
+							"let today = new Date();\r",
+							"let checkin = new Date(today);\r",
+							"checkin.setDate(today.getDate() + Math.floor(Math.random() * 5) + 1);\r",
+							"\r",
+							"let checkout = new Date(today);\r",
+							"checkout.setDate(today.getDate() + Math.floor(Math.random() * 10) + 6);\r",
+							"\r",
+							"function formatDate(date) {\r",
+							"    return date.toISOString().split('T')[0];\r",
+							"}\r",
+							"\r",
+							"pm.variables.set(\"checkin\", formatDate(checkin));\r",
+							"pm.variables.set(\"checkout\", formatDate(checkout));"
 						],
 						"type": "text/javascript",
 						"packages": {},
@@ -104,7 +181,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"lastname\": \"Lostumbo\",\n    \"totalprice\": 100,\n    \"depositpaid\": true,\n    \"bookingdates\": {\n        \"checkin\": \"2025-06-01\",\n        \"checkout\": \"2025-06-07\"\n    },\n    \"additionalneeds\": \"Breakfast\"\n}",
+					"raw": "{\n  \"lastname\": \"{{lastname}}\",\n  \"totalprice\": {{totalprice}},\n  \"depositpaid\": {{depositpaid}},\n  \"bookingdates\": {\n    \"checkin\": \"{{checkin}}\",\n    \"checkout\": \"{{checkout}}\"\n  },\n  \"additionalneeds\": \"{{additionalneeds}}\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
