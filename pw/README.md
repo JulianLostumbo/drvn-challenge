@@ -1,25 +1,153 @@
-"""
-This project is a test automation framework built using Cucumber and the Page Object Model (POM) design pattern. It is structured to facilitate behavior-driven development (BDD) and maintainable test automation.
+# Playwright + Cucumber UI Automation Framework
 
-Framework Structure:
-- features/: Contains Cucumber feature files written in Gherkin syntax, describing the test scenarios.
-- step_definitions/: Houses the step definition files that map Gherkin steps to executable code.
-- pages/: Implements the Page Object Model, encapsulating web page elements and actions for reusability.
-- scripts/: Includes utility scripts for test execution, setup, and teardown.
-- .env: Stores environment variables such as URLs, credentials, and configuration settings.
-- reports/: Directory for generated test execution reports (e.g., HTML, JSON).
+This project implements UI automation for the [SauceDemo](https://www.saucedemo.com) website using **Playwright**, **TypeScript**, and **Cucumber (Gherkin)**. It follows a modular structure using the **Page Object Model (POM)** and supports tagging, reporting, and CI/CD integration.
 
-Setup Instructions:
-1. Install dependencies:
-    - Ensure Node.js is installed.
-    - Run `npm install` to install required packages (Cucumber, WebDriver, etc.).
-2. Configure environment:
-    - Edit the `.env` file with appropriate values for your test environment.
-3. Prepare browser drivers if needed (e.g., ChromeDriver).
+---
 
-Running Tests:
-- Execute tests using the command: `npm test` or `npx cucumber-js`.
-- Test results and reports will be generated in the `reports/` directory.
+## Project Structure
 
-This framework enables scalable, readable, and maintainable automated testing by combining Cucumber's BDD approach with the modularity of the Page Object Model.
-"""
+```
+pw/
+├── features/              # Gherkin .feature files
+│                          # Contains Cucumber feature files written in Gherkin syntax, describing the test scenarios
+│   ├── login.feature
+│   └── checkout.feature
+├── pages/                 # Page Object Model classes
+│                          # Implements the Page Object Model, encapsulating web page elements and actions for reusability
+│   ├── LoginPage.ts
+│   ├── InventoryPage.ts
+│   ├── CartPage.ts
+│   ├── CheckoutPage.ts
+│   └── ConfirmationPage.ts
+├── step-definitions/      # Step bindings (Cucumber + Playwright)
+│                          # Houses the step definition files that map Gherkin steps to executable code
+│   ├── login.steps.ts
+│   ├── checkout.steps.ts
+│   └── hooks.ts
+├── reports/               # HTML and JSON reports
+├── test-results/          # Screenshots, traces, videos
+├── .env                   # Environment variables (e.g., BASE_URL) 
+│                          # Stores environment variables such as URLs, credentials, and configuration settings
+├── cucumber.js            # Cucumber config
+├── playwright.config.ts   # Playwright runner configuration
+├── package.json           # Project metadata and scripts
+└── README.md              # Project documentation
+```
+
+---
+
+## 🚀 Getting Started
+
+### 1. Install Dependencies
+```bash
+npm install
+```
+
+### 2. Run All Tests (Headless)
+```bash
+npm test
+```
+
+### 3. Run Specific Tagged Tests
+```bash
+npm run test:smoke
+npm run test:regression
+npm run test:flaky
+```
+
+### 4. Run in Headed Mode for Debugging
+Edit the `hooks.ts` file and set:
+```ts
+browser = await chromium.launch({ headless: false, slowMo: 200 });
+```
+
+---
+
+## ✅ Available Scripts (package.json)
+
+```json
+  "scripts": {
+    "test": "npx cucumber-js",
+    "codegen": "playwright codegen https://www.saucedemo.com",
+    "test:smoke": "npx cucumber-js --tags @smoke",
+    "test:regression": "npx cucumber-js --tags @regression",
+    "test:flaky": "npx cucumber-js --tags @flaky --retry 2",
+    "report": "node report.js",
+    "test:report": "npx cucumber-js --format json:reports/cucumber_report.json && node report.js"
+  }
+```
+
+---
+
+## 🧪 Test Examples
+
+### Login Flow
+**gherkin**
+Scenario: Successful login with valid credentials
+  Given I open the login page
+  When I log in with "standard_user" and "secret_sauce"
+  Then I land on the inventory page and see at least one product
+
+### Checkout Flow
+**gherkin**
+  Scenario: Successful checkout flow
+    Given I am logged in as a "standard user"
+    When I add any product to the cart
+    And I fill First Name, Last Name, Postal Code with any valid values
+    And I complete the checkout
+    Then I see "Thank you for your order!" confirmation
+
+  Scenario: Form validation shows error when Postal Code is missing
+    Given I am at the checkout information page
+    When I leave the Postal Code field empty and click Continue
+    Then I see an error message about the missing field
+
+---
+
+## Reporting
+
+### Generate HTML Report:
+```bash
+npm run test:report
+```
+
+Outputs to:
+- `reports/cucumber_report.json`
+- `reports/html/`
+
+---
+
+## Playwright Artifacts
+
+- Screenshots, videos, and traces are automatically saved in:
+  - `test-results/`
+  - `playwright-report/`
+
+---
+
+## Environment Variables
+
+Add a `.env` file in the root:
+```
+BASE_URL=https://www.saucedemo.com
+```
+
+These values are injected into step definitions using `process.env`.
+
+---
+
+## CI/CD
+
+This project supports:
+- GitHub Actions integration
+- Tagged test execution (`@smoke`, `@regression`, `@flaky`)
+- Retry logic and trace collection for failed tests
+
+To reduce flakiness and improve test reliability in CI/CD pipelines:
+
+- **Retries**: Use the `--retry` flag with Cucumber (`npm run test:flaky`) to re-attempt flaky scenarios.
+- **Screenshots & Videos**: Automatically captured on failure (stored in `test-results/` or `playwright-report/`).
+- **Headless Stability**: Tests are optimized to run in headless environments using smart selectors and built-in waits.
+- **Parallel Execution**: Can be enabled via Playwright config to run tests concurrently for faster CI runs.
+
+These features help debug and stabilize tests in both local and remote CI environments.
