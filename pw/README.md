@@ -13,14 +13,18 @@ pw/
 │   ├── login.feature
 │   └── checkout.feature
 ├── pages/                 # Page Object Model classes
-│                          # Implements the Page Object Model, encapsulating web page elements and actions for reusability
+│   ├──                    # Implements the Page Object Model, encapsulating web page elements and actions for reusability
+│   ├── PageBase.ts
 │   ├── LoginPage.ts
 │   ├── InventoryPage.ts
 │   ├── CartPage.ts
 │   ├── CheckoutPage.ts
-│   └── ConfirmationPage.ts
+│   ├── ConfirmationPage.ts
+│   │                      # .json files that contain key: value formated data related to the pages endpoint for navigation porpuses and all the string selectors (DOM)
+│   ├── pages.json
+│   ├── selectors.json
 ├── step-definitions/      # Step bindings (Cucumber + Playwright)
-│                          # Houses the step definition files that map Gherkin steps to executable code
+│   ├──                    # Houses the step definition files that map Gherkin steps to executable code
 │   ├── login.steps.ts
 │   ├── checkout.steps.ts
 │   └── hooks.ts
@@ -83,10 +87,10 @@ browser = await chromium.launch({ headless: false, slowMo: 200 });
 
 ### Login Flow
 **gherkin**
-Scenario: Successful login with valid credentials
-  Given I open the login page
-  When I log in with "standard_user" and "secret_sauce"
-  Then I land on the inventory page and see at least one product
+  Scenario: Successful login with valid credentials
+    Given I open the login page
+    When I log in with "standard_user" and "secret_sauce" 
+    Then I land on the inventory page and see at least one product
 
 ### Checkout Flow
 **gherkin**
@@ -95,12 +99,12 @@ Scenario: Successful login with valid credentials
     When I add any product to the cart
     And I fill First Name, Last Name, Postal Code with any valid values
     And I complete the checkout
-    Then I see "Thank you for your order!" confirmation
+    Then I see the "Thank you for your order!" confirmation
 
-  Scenario: Form validation shows error when Postal Code is missing
-    Given I am at the checkout information page
-    When I leave the Postal Code field empty and click Continue
-    Then I see an error message about the missing field
+  Scenario: Form validation shows error when required field is missing
+    Given I am at "Checkout: Your Information"
+    When I leave the "Postal Code" empty and click "Continue"
+    Then I see the error message about the missing field
 
 ---
 
