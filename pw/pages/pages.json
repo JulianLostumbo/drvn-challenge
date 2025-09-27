@@ -1,0 +1,7 @@
+{
+    "Inventory Page": "inventory",
+    "Cart Page": "cart",
+    "Checkout: Your Information": "checkout-step-one",
+    "Checkout: Overview": "checkout-step-two",
+    "Checkout: Complete!": "checkout-complete"
+}

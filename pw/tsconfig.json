@@ -4,7 +4,9 @@
     "module": "commonjs",
     "strict": true,
     "esModuleInterop": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "resolveJsonModule": true
   },
   "include": [
     "step-definitions/**/*.ts",

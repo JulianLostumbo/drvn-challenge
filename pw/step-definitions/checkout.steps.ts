@@ -31,16 +31,16 @@ After(async () => {
 });
 
 Given('I am logged in as a {string}', {timeout: 15000}, async (userType: string) => {
-  await loginPage.goto();
-  await loginPage.login(userType === 'standard user' ? 'standard_user' : 'locked_out_user', 'secret_sauce');
+  await loginPage.loginToApp(userType === 'standard user' ? 'standard_user' : 'locked_out_user', process.env.PASSWORD_ALL_USERS || 'secret_sauce');
 });
 
-Given('I am at the checkout information page', {timeout: 15000}, async () => {
-  await loginPage.goto();
-  await loginPage.login('standard_user', 'secret_sauce');
-  await inventoryPage.addFirstProductToCart();
-  await inventoryPage.goToCart();
-  await cartPage.clickCheckout();
+Given('I am at {string}', {timeout: 15000}, async (pageName: string) => {
+  await loginPage.loginToApp(process.env.USER_STANDARD || 'standard_user', process.env.PASSWORD_ALL_USERS || 'secret_sauce');
+  const page = loginPage.getPagePath(pageName as any);
+  if (!page) {
+    throw new Error(`Page "${pageName}" not found in pages.json`);
+  }
+  await loginPage.goToPage(page);
 });
 
 When('I add any product to the cart', async () => {
@@ -49,27 +49,29 @@ When('I add any product to the cart', async () => {
   await cartPage.clickCheckout();
 });
 
-When('I fill First Name, Last Name, Postal Code with any valid values', async () => {
-  await checkoutPage.fillInformation('Juli', 'Lostumbo', '12345');
+When('I fill First Name, Last Name, Postal Code with any valid values', {timeout: 15000}, async () => {
+  const randomFirstName = `User${Math.floor(Math.random() * 1000)}`;
+  const randomLastName = `Test${Math.floor(Math.random() * 1000)}`;
+  const randomPostalCode = Math.floor(10000 + Math.random() * 89999).toString(); // 5-digit zip
+  await checkoutPage.fillInformation(randomFirstName, randomLastName, randomPostalCode);
 });
 
 When('I complete the checkout', async () => {
   await checkoutPage.completeCheckout();
 });
 
-When('I leave the Postal Code field empty and click Continue', async () => {
-  await checkoutPage.fillInformation('Juli', 'Lostumbo', '');
-  await checkoutPage.clickContinue();
+When('I leave the {string} empty and click {string}', async (fieldName: string, buttonName: string) => {
+  await checkoutPage.fillInformationLeavingMissingField(fieldName as "First Name" | "Last Name" | "Postal Code");
+  await checkoutPage.clickButton(buttonName as "Continue" | "Cancel");
 });
 
-Then('I see {string} confirmation', async (expectedMessage: string) => {
+Then('I see the {string} confirmation', async (expectedMessage: string) => {
   const message = await confirmationPage.getConfirmationMessage();
   await expect(message).not.toBeNull();
   await expect(message!).toContain(expectedMessage);
 });
 
-Then('I see an error message about the missing field', async () => {
+Then('I see the error message about the missing field', async () => {
   await expect(checkoutPage.errorMessage).toBeVisible();
-
   await expect(checkoutPage.errorMessage).toHaveText(/Postal Code is required/);
 });

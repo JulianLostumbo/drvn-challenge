@@ -1,0 +1,27 @@
+{
+  "LoginPage": {
+    "Username": "#user-name",
+    "Password": "#password",
+    "Login Button": "#login-button"
+  },
+  "InventoryPage": {
+    "Inventory Items": ".inventory_item",
+    "Add To Cart Button": ".inventory_item button",
+    "Cart Icon": ".shopping_cart_link"
+  },
+  "CartPage": {
+    "Checkout Button": "[data-test='checkout']"
+  },
+  "CheckoutPage": {
+    "First Name": "[data-test='firstName']",
+    "Last Name": "[data-test='lastName']",
+    "Postal Code": "[data-test='postalCode']",
+    "Continue": "[data-test='continue']",
+    "Cancel": "[data-test='cancel']",
+    "Finish": "[data-test='finish']",
+    "Error Message": "[data-test='error']"
+  },
+  "ConfirmationPage": {
+    "Confirmation Header": ".complete-header"
+  }
+}

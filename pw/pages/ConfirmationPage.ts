@@ -1,14 +1,20 @@
 import { Page, Locator, expect } from '@playwright/test';
+import { PageBase } from './PageBase';
+import selectors from './selectors.json';
 
-export class ConfirmationPage {
-  private page: Page;
+export class ConfirmationPage extends PageBase {
   readonly confirmationHeader: Locator;
+  private s = selectors['ConfirmationPage'];
 
   constructor(page: Page) {
-    this.page = page;
-    this.confirmationHeader = page.locator('.complete-header');
+    super(page);
+    this.confirmationHeader = page.locator(this.s['Confirmation Header']);
   }
 
+  /**
+   * Gets the confirmation message text.
+   * @returns The confirmation message text
+   */
   async getConfirmationMessage(): Promise<string | null> {
     await expect(this.confirmationHeader).toBeVisible();
     return this.confirmationHeader.textContent();
