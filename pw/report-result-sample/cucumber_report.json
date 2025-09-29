@@ -14,7 +14,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 1112742200
+              "duration": 2683443599
             }
           },
           {
@@ -22,7 +22,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 569527200
+              "duration": 1636701200
             }
           },
           {
@@ -35,7 +35,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 1196013799
+              "duration": 6358517100
             }
           },
           {
@@ -48,7 +48,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 406392400
+              "duration": 483340100
             }
           },
           {
@@ -61,7 +61,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 371410399
+              "duration": 372581599
             }
           },
           {
@@ -74,7 +74,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 282241700
+              "duration": 296421599
             }
           },
           {
@@ -87,7 +87,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 10412299
+              "duration": 9979200
             }
           },
           {
@@ -95,7 +95,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 395168099
+              "duration": 348909300
             }
           },
           {
@@ -103,7 +103,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 295000299
+              "duration": 464715100
             }
           }
         ],
@@ -131,7 +131,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 844055600
+              "duration": 1501546800
             }
           },
           {
@@ -139,7 +139,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 515437300
+              "duration": 1278117999
             }
           },
           {
@@ -152,7 +152,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 1422818400
+              "duration": 4082478800
             }
           },
           {
@@ -165,7 +165,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 273307600
+              "duration": 325218600
             }
           },
           {
@@ -178,7 +178,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 11327800
+              "duration": 10871500
             }
           },
           {
@@ -186,7 +186,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 217290699
+              "duration": 371649000
             }
           },
           {
@@ -194,7 +194,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 235638199
+              "duration": 601569400
             }
           }
         ],
@@ -229,7 +229,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 802433900
+              "duration": 1520525700
             }
           },
           {
@@ -237,7 +237,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 544503300
+              "duration": 1360972100
             }
           },
           {
@@ -250,7 +250,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 929517400
+              "duration": 2904398499
             }
           },
           {
@@ -263,7 +263,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 696510900
+              "duration": 779370299
             }
           },
           {
@@ -276,7 +276,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 11858900
+              "duration": 37594700
             }
           },
           {
@@ -284,7 +284,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 295428300
+              "duration": 510729100
             }
           },
           {
@@ -292,7 +292,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 281938199
+              "duration": 584194999
             }
           }
         ],
@@ -304,6 +304,93 @@
           {
             "name": "@regression",
             "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "login;try-to-login-with-locked-out-user",
+        "keyword": "Scenario",
+        "line": 10,
+        "name": "Try to login with locked out user",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1487531699
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1447597499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 11,
+            "name": "I open the login page",
+            "match": {
+              "location": "step-definitions\\login.steps.ts:23"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2983601500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I log in with \"locked_out_user\" and \"secret_sauce\"",
+            "match": {
+              "location": "step-definitions\\login.steps.ts:27"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 725996400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "I should see the error message \"Sorry, this user has been locked out.\"",
+            "match": {
+              "location": "step-definitions\\login.steps.ts:42"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 16265800
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 463740900
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 908617500
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@regression",
+            "line": 9
           }
         ],
         "type": "scenario"
