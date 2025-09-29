@@ -1,10 +1,10 @@
 UI (Playwright + Cucumber)
 ------------------------
 1. **Smoke tests on PR:**
-Automate login and checkout flow scenarios. These are critical paths that must work on every pull request.
+Cover login and checkout flow scenarios, which are the core happy paths. These are critical paths that must work on every pull request.
 
 2. **Regression tests nightly**
-Expand to include other UI validations (e.g. cart behavior, input validation, error messages). Run all feature-based tests using Cucumber tags (@regression) every night.
+Expand smoke test suite to include alternative and negative scenarios including other UI validations (e.g. cart behavior, input validation, error messages). Run all feature-based tests using Cucumber tags (@regression) every night.
 
 3. **Flaky tests**
 Includes only tests tagged as @flaky, scenarios that tend to have instable and aconsistent results and tend to provoke false positives. They are configured to be re-executed using retries to have more consistent results.
