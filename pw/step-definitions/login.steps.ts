@@ -38,3 +38,8 @@ Then('I land on the inventory page and see at least one product', async () => {
   const count = await inventoryPage.getProductCount();
   expect(count).toBeGreaterThan(0);
 });
+
+Then('I should see the error message {string}', async (expectedMessage: string) => {
+  const errorMessage = await loginPage.getErrorMessage();
+  expect(errorMessage).toContain(expectedMessage);
+});

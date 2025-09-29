@@ -2,7 +2,8 @@
   "LoginPage": {
     "Username": "#user-name",
     "Password": "#password",
-    "Login Button": "#login-button"
+    "Login Button": "#login-button",
+    "Error Message": "[data-test='error']"
   },
   "InventoryPage": {
     "Inventory Items": ".inventory_item",

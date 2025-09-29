@@ -6,6 +6,7 @@ export class LoginPage extends PageBase {
   private usernameInput: Locator;
   private passwordInput: Locator;
   private loginButton: Locator;
+  private errorMessage: Locator;
   private s = selectors['LoginPage'];
 
   constructor(page: Page) {
@@ -13,6 +14,7 @@ export class LoginPage extends PageBase {
     this.usernameInput = page.locator(this.s['Username']);
     this.passwordInput = page.locator(this.s['Password']);
     this.loginButton = page.locator(this.s['Login Button']);
+    this.errorMessage = page.locator(this.s['Error Message']);
   }
 
   /**
@@ -49,5 +51,14 @@ export class LoginPage extends PageBase {
   async loginToApp(username: string, password: string): Promise<void> {
     await this.goto();
     await this.login(username, password);
+  }
+
+  /**
+   * Retrieves the error message displayed on the login page, if any.
+   * @returns The error message text if present, otherwise an empty string.
+   */
+  async getErrorMessage(): Promise<string> {
+    await expect(this.errorMessage).toBeVisible();
+    return (await this.errorMessage.textContent()) ?? '';
   }
 }
