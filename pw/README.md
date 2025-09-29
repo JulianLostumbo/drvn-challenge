@@ -51,15 +51,18 @@ npm install
 ```bash
 npm test
 ```
-
-### 3. Run Specific Tagged Tests
+### 3. Run an Specific Given Test
+```bash
+npm run test:single ""Scenario Title"
+```
+### 4. Run Specific Tagged Tests
 ```bash
 npm run test:smoke
 npm run test:regression
 npm run test:flaky
 ```
 
-### 4. Run in Headed Mode for Debugging
+### 5. Run in Headed Mode for Debugging
 Edit each step-definition file file and set:
 ```ts
 browser = await chromium.launch({ headless: false, slowMo: 200 });
@@ -72,7 +75,7 @@ browser = await chromium.launch({ headless: false, slowMo: 200 });
 ```json
   "scripts": {
     "test": "npx cucumber-js",
-    "codegen": "playwright codegen https://www.saucedemo.com",
+    "test:single": "npx cucumber-js --name",
     "test:smoke": "npx cucumber-js --tags @smoke",
     "test:regression": "npx cucumber-js --tags @regression",
     "test:flaky": "npx cucumber-js --tags @flaky --retry 2",

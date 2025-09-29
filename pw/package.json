@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npx cucumber-js",
-    "codegen": "playwright codegen https://www.saucedemo.com",
+    "test:single": "npx cucumber-js --name",
     "test:smoke": "npx cucumber-js --tags @smoke",
     "test:regression": "npx cucumber-js --tags @regression",
     "test:flaky": "npx cucumber-js --tags @flaky --retry 2",
