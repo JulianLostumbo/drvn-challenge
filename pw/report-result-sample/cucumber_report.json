@@ -1,0 +1,319 @@
+[
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "checkout-flow;successful-checkout-flow",
+        "keyword": "Scenario",
+        "line": 4,
+        "name": "Successful checkout flow",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1112742200
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 569527200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I am logged in as a \"standard user\"",
+            "match": {
+              "location": "step-definitions\\checkout.steps.ts:33"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1196013799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 6,
+            "name": "I add any product to the cart",
+            "match": {
+              "location": "step-definitions\\checkout.steps.ts:46"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 406392400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 7,
+            "name": "I fill First Name, Last Name, Postal Code with any valid values",
+            "match": {
+              "location": "step-definitions\\checkout.steps.ts:52"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 371410399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "I complete the checkout",
+            "match": {
+              "location": "step-definitions\\checkout.steps.ts:59"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 282241700
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 9,
+            "name": "I see the \"Thank you for your order!\" confirmation",
+            "match": {
+              "location": "step-definitions\\checkout.steps.ts:68"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 10412299
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 395168099
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 295000299
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@regression",
+            "line": 3
+          },
+          {
+            "name": "@smoke",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "checkout-flow;form-validation-shows-error-when-required-field-is-missing",
+        "keyword": "Scenario",
+        "line": 12,
+        "name": "Form validation shows error when required field is missing",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 844055600
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 515437300
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 13,
+            "name": "I am at \"Checkout: Your Information\"",
+            "match": {
+              "location": "step-definitions\\checkout.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1422818400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 14,
+            "name": "I leave the \"Postal Code\" empty and click \"Continue\"",
+            "match": {
+              "location": "step-definitions\\checkout.steps.ts:63"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 273307600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 15,
+            "name": "I see the error message about the missing field",
+            "match": {
+              "location": "step-definitions\\checkout.steps.ts:74"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 11327800
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 217290699
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 235638199
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@regression",
+            "line": 11
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "checkout-flow",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Checkout Flow",
+    "tags": [],
+    "uri": "features\\checkout.feature"
+  },
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "login;successful-login-with-valid-credentials",
+        "keyword": "Scenario",
+        "line": 4,
+        "name": "Successful login with valid credentials",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 802433900
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 544503300
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I open the login page",
+            "match": {
+              "location": "step-definitions\\login.steps.ts:23"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 929517400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 6,
+            "name": "I log in with \"standard_user\" and \"secret_sauce\"",
+            "match": {
+              "location": "step-definitions\\login.steps.ts:27"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 696510900
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 7,
+            "name": "I land on the inventory page and see at least one product",
+            "match": {
+              "location": "step-definitions\\login.steps.ts:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 11858900
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 295428300
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 281938199
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@smoke",
+            "line": 3
+          },
+          {
+            "name": "@regression",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "login",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Login",
+    "tags": [],
+    "uri": "features\\login.feature"
+  }
+]
