@@ -54,7 +54,7 @@ jobs:
         run: npm install --prefix pw
 
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps --cwd=pw
+        run: npx --prefix pw playwright install --with-deps
 
       - name: Run UI Tests
         run: npm run test:report --prefix pw
