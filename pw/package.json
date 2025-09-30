@@ -10,7 +10,7 @@
     "test:regression": "npx cucumber-js --tags @regression",
     "test:flaky": "npx cucumber-js --tags @flaky --retry 2",
     "report": "node report.js",
-    "test:report": "npx cucumber-js --format json:reports/cucumber_report.json && node report.js"
+    "test:report": "npx cucumber-js --tags @regression --format json:reports/cucumber_report.json && node report.js"
   },
   "keywords": [],
   "author": "",
