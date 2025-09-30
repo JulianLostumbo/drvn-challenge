@@ -46,18 +46,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-
       - name: Install dependencies
-        working-directory: drvn-challenge/pw
-        run: npm ci
+        run: npm ci --prefix drvn-challenge/pw
 
       - name: Install Playwright Browsers
-        working-directory: drvn-challenge/pw
-        run: npx playwright install --with-deps
+        run: npx playwright install --with-deps --cwd=drvn-challenge/pw
 
       - name: Run UI Tests
-        working-directory: drvn-challenge/pw
-        run: npm run test:report
+        run: npm run test:report --prefix drvn-challenge/pw
 
       - name: Upload UI Artifacts
         uses: actions/upload-artifact@v4
