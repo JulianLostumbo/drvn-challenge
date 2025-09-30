@@ -1,6 +1,6 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { PageBase } from './PageBase';
-import selectors from './selectors.json';
+import selectors from './data/selectors.json';
 
 export class LoginPage extends PageBase {
   private usernameInput: Locator;

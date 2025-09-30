@@ -1,6 +1,15 @@
 import { Given, When, Then } from '@cucumber/cucumber';
 import { expect } from '@playwright/test';
 import { TestWorld } from '../support/world';
+import {
+  generateRandomFirstName,
+  generateRandomLastName,
+  generateRandomPostalCode,
+} from '../utils/data-generator';
+
+let randomFirstName = generateRandomFirstName();
+let randomLastName = generateRandomLastName();
+let randomPostalCode = generateRandomPostalCode();
 
 Given('I am logged in as a {string}', {timeout: 15000}, async function (this: TestWorld, userType: string) {
   await this.loginPage.loginToApp(userType === 'standard user' ? 'standard_user' : 'locked_out_user', process.env.PASSWORD_ALL_USERS || 'secret_sauce');
@@ -22,9 +31,6 @@ When('I add any product to the cart', async function (this: TestWorld) {
 });
 
 When('I fill First Name, Last Name, Postal Code with any valid values', {timeout: 15000}, async function (this: TestWorld) {
-  const randomFirstName = `User${Math.floor(Math.random() * 1000)}`;
-  const randomLastName = `Test${Math.floor(Math.random() * 1000)}`;
-  const randomPostalCode = Math.floor(10000 + Math.random() * 89999).toString(); // 5-digit zip
   await this.checkoutPage.fillInformation(randomFirstName, randomLastName, randomPostalCode);
 });
 
@@ -43,7 +49,7 @@ Then('I see the {string} confirmation', async function (this: TestWorld, expecte
   await expect(message!).toContain(expectedMessage);
 });
 
-Then('I see the error message about the missing field', async function (this: TestWorld) {
+Then('I see the error message about the missing field', {timeout: 15000}, async function (this: TestWorld) {
   await expect(this.checkoutPage.errorMessage).toBeVisible();
   await expect(this.checkoutPage.errorMessage).toHaveText(/Postal Code is required/);
 });

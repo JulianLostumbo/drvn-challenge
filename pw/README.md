@@ -20,9 +20,9 @@ pw/
 │   ├── CartPage.ts
 │   ├── CheckoutPage.ts
 │   ├── ConfirmationPage.ts
-│   │                      # .json files that contain key: value formated data related to the pages endpoint for navigation porpuses and all the string selectors (DOM)
-│   ├── pages.json
-│   └── selectors.json
+│   └── data/             # .json files that contain key: value formated data related to the pages endpoint for navigation porpuses and all the string selectors (DOM)
+│       ├── pages.json
+│       └── selectors.json
 ├── step-definitions/      # Step bindings (Cucumber + Playwright)
 │   ├──                    # Houses the step definition files that map Gherkin steps to executable code
 │   ├── login.steps.ts
@@ -30,6 +30,8 @@ pw/
 ├── support/                    # Cucumber support files
 │   ├── hooks.ts                # Global setup and teardown hooks (e.g., browser launch, context creation)
 │   └── world.ts                # TypeScript interface defining the shared test context
+├── utils/                      # Helper functions and data generators
+│   └── dataGenerator.ts        # Generates random first name, last name, postal code, etc.
 ├── reports/               # HTML and JSON reports
 ├── test-results/          # Screenshots, traces, videos
 ├── .env                   # Environment variables (e.g., BASE_URL) 
@@ -81,7 +83,6 @@ browser = await chromium.launch({ headless: false, slowMo: 200 });
     "test:smoke": "npx cucumber-js --tags @smoke",
     "test:regression": "npx cucumber-js --tags @regression",
     "test:flaky": "npx cucumber-js --tags @flaky --retry 2",
-    "report": "node report.js",
     "test:report": "npx cucumber-js --format json:reports/cucumber_report.json && node report.js"
   }
 ```

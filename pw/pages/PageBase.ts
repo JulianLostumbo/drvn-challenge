@@ -1,5 +1,5 @@
 import { Page } from 'playwright';
-import pages from './pages.json';
+import pages from './data/pages.json';
 
 type PageLabel = keyof typeof pages;
 

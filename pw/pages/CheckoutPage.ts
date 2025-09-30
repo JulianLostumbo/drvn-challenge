@@ -1,6 +1,11 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { PageBase } from './PageBase';
-import selectors from './selectors.json';
+import selectors from './data/selectors.json';
+import {
+  generateRandomFirstName,
+  generateRandomLastName,
+  generateRandomPostalCode,
+} from '../utils/data-generator';
 
 export class CheckoutPage extends PageBase {
   private firstNameInput: Locator;
@@ -47,9 +52,9 @@ export class CheckoutPage extends PageBase {
   async fillInformationLeavingMissingField(
     fieldName: "First Name" | "Last Name" | "Postal Code"
   ) {
-    const randomFirstName = `User${Math.floor(Math.random() * 1000)}`;
-    const randomLastName = `Test${Math.floor(Math.random() * 1000)}`;
-    const randomPostalCode = Math.floor(10000 + Math.random() * 89999).toString(); // 5-digit zip
+    let randomFirstName = generateRandomFirstName();
+    let randomLastName = generateRandomLastName();
+    let randomPostalCode = generateRandomPostalCode();
     this.fillInformation(randomFirstName, randomLastName, randomPostalCode);
     await this.page.locator(this.s[fieldName]).clear();
   }
