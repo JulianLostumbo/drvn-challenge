@@ -57,6 +57,19 @@ Test Cases
    - Expects non-2xx status
    - Asserts error or mismatch from happy-path response
 
+Pre-request & Test Scripts
+------------------------
+*Pre-request Script (Collection-Level)*
+A collection-level pre-request script dynamically generates randomized values for fields like firstname, lastname, additionalneeds, and postalcode, as well as valid checkin and checkout dates.
+These variables are injected into the request body to simulate realistic and unique booking payloads on each run.
+
+*Test Script (Assertions Per Request)*
+Postman test scripts are included to validate:
+   - The HTTP status code (e.g., expect 200 for successful bookings)
+   - The presence of expected keys like bookingid and booking in the response
+
+Negative tests assert that the API correctly returns non-2xx responses and handles error scenarios appropriately.
+
 Environment Setup
 ---------------------
 Environment variables used:
