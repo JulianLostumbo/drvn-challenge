@@ -24,7 +24,7 @@ jobs:
 
       - name: Run API Tests
         run: |
-          newman run ./newman/RestfulBooker.postman_collection.json \
+          newman run ./newman/RestfulBooker.postman_collection \
             -e ./newman/restful_booker.postman_environment.json \
             --reporters cli,junit \
             --reporter-junit-export reports/api-report.xml
