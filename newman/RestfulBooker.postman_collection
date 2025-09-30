@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "7ec829e6-3a6a-4572-a28e-ce02d5d05a06",
-		"name": "Restful Booker",
+		"name": "RestfulBooker",
 		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "32497068",
@@ -11,6 +11,17 @@
 		{
 			"name": "CreateBooking",
 			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
 				{
 					"listen": "test",
 					"script": {
@@ -38,45 +49,6 @@
 						"packages": {},
 						"requests": {}
 					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"// Generate random strings\r",
-							"const firstNames = [\"Julian\", \"Marco\", \"Miguel\", \"Walter\", \"David\"];\r",
-							"const lastNames = [\"Lostumbo\", \"Ruben\", \"Russo\", \"White\", \"Garcia\"];\r",
-							"const needs = [\"Breakfast\", \"Lunch\", \"Dinner\", \"None\"];\r",
-							"\r",
-							"pm.variables.set(\"firstname\", firstNames[Math.floor(Math.random() * firstNames.length)]);\r",
-							"pm.variables.set(\"lastname\", lastNames[Math.floor(Math.random() * lastNames.length)]);\r",
-							"pm.variables.set(\"additionalneeds\", needs[Math.floor(Math.random() * needs.length)]);\r",
-							"\r",
-							"// Random total price (100 to 500)\r",
-							"pm.variables.set(\"totalprice\", Math.floor(Math.random() * 400) + 100);\r",
-							"\r",
-							"// Random boolean\r",
-							"pm.variables.set(\"depositpaid\", Math.random() < 0.5);\r",
-							"\r",
-							"// Checkin today + 1 to 5 days, checkout + 6 to 10 days\r",
-							"let today = new Date();\r",
-							"let checkin = new Date(today);\r",
-							"checkin.setDate(today.getDate() + Math.floor(Math.random() * 5) + 1);\r",
-							"\r",
-							"let checkout = new Date(today);\r",
-							"checkout.setDate(today.getDate() + Math.floor(Math.random() * 10) + 6);\r",
-							"\r",
-							"function formatDate(date) {\r",
-							"    return date.toISOString().split('T')[0];\r",
-							"}\r",
-							"\r",
-							"pm.variables.set(\"checkin\", formatDate(checkin));\r",
-							"pm.variables.set(\"checkout\", formatDate(checkout));"
-						],
-						"type": "text/javascript",
-						"packages": {},
-						"requests": {}
-					}
 				}
 			],
 			"request": {
@@ -90,7 +62,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"firstname\": \"{{firstname}}\",\n  \"lastname\": \"{{lastname}}\",\n  \"totalprice\": {{totalprice}},\n  \"depositpaid\": {{depositpaid}},\n  \"bookingdates\": {\n    \"checkin\": \"{{checkin}}\",\n    \"checkout\": \"{{checkout}}\"\n  },\n  \"additionalneeds\": \"{{additionalneeds}}\"\n}",
+					"raw": "{\r\n  \"firstname\": \"{{firstname}}\",\r\n  \"lastname\": \"{{lastname}}\",\r\n  \"totalprice\": {{totalprice}},\r\n  \"depositpaid\": {{depositpaid}},\r\n  \"bookingdates\": {\r\n    \"checkin\": \"{{checkin}}\",\r\n    \"checkout\": \"{{checkout}}\"\r\n  },\r\n  \"additionalneeds\": \"{{additionalneeds}}\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -136,33 +108,7 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"// Generate random strings\r",
-							"const lastNames = [\"Lostumbo\", \"Ruben\", \"Russo\", \"White\", \"Garcia\"];\r",
-							"const needs = [\"Breakfast\", \"Lunch\", \"Dinner\", \"None\"];\r",
-							"\r",
-							"pm.variables.set(\"lastname\", lastNames[Math.floor(Math.random() * lastNames.length)]);\r",
-							"pm.variables.set(\"additionalneeds\", needs[Math.floor(Math.random() * needs.length)]);\r",
-							"\r",
-							"// Random total price (100 to 500)\r",
-							"pm.variables.set(\"totalprice\", Math.floor(Math.random() * 400) + 100);\r",
-							"\r",
-							"// Random boolean\r",
-							"pm.variables.set(\"depositpaid\", Math.random() < 0.5);\r",
-							"\r",
-							"// Checkin today + 1 to 5 days, checkout + 6 to 10 days\r",
-							"let today = new Date();\r",
-							"let checkin = new Date(today);\r",
-							"checkin.setDate(today.getDate() + Math.floor(Math.random() * 5) + 1);\r",
-							"\r",
-							"let checkout = new Date(today);\r",
-							"checkout.setDate(today.getDate() + Math.floor(Math.random() * 10) + 6);\r",
-							"\r",
-							"function formatDate(date) {\r",
-							"    return date.toISOString().split('T')[0];\r",
-							"}\r",
-							"\r",
-							"pm.variables.set(\"checkin\", formatDate(checkin));\r",
-							"pm.variables.set(\"checkout\", formatDate(checkout));"
+							""
 						],
 						"type": "text/javascript",
 						"packages": {},
@@ -207,8 +153,37 @@
 			"listen": "prerequest",
 			"script": {
 				"type": "text/javascript",
+				"requests": {},
 				"exec": [
-					""
+					"// Generate random strings\r",
+					"const firstNames = [\"Julian\", \"Marco\", \"Miguel\", \"Walter\", \"David\"];\r",
+					"const lastNames = [\"Lostumbo\", \"Ruben\", \"Russo\", \"White\", \"Garcia\"];\r",
+					"const needs = [\"Breakfast\", \"Lunch\", \"Dinner\", \"None\"];\r",
+					"\r",
+					"pm.variables.set(\"firstname\", firstNames[Math.floor(Math.random() * firstNames.length)]);\r",
+					"pm.variables.set(\"lastname\", lastNames[Math.floor(Math.random() * lastNames.length)]);\r",
+					"pm.variables.set(\"additionalneeds\", needs[Math.floor(Math.random() * needs.length)]);\r",
+					"\r",
+					"// Random total price (100 to 500)\r",
+					"pm.variables.set(\"totalprice\", Math.floor(Math.random() * 400) + 100);\r",
+					"\r",
+					"// Random boolean\r",
+					"pm.variables.set(\"depositpaid\", Math.random() < 0.5);\r",
+					"\r",
+					"// Checkin today + 1 to 5 days, checkout + 6 to 10 days\r",
+					"let today = new Date();\r",
+					"let checkin = new Date(today);\r",
+					"checkin.setDate(today.getDate() + Math.floor(Math.random() * 5) + 1);\r",
+					"\r",
+					"let checkout = new Date(today);\r",
+					"checkout.setDate(today.getDate() + Math.floor(Math.random() * 10) + 6);\r",
+					"\r",
+					"function formatDate(date) {\r",
+					"    return date.toISOString().split('T')[0];\r",
+					"}\r",
+					"\r",
+					"pm.variables.set(\"checkin\", formatDate(checkin));\r",
+					"pm.variables.set(\"checkout\", formatDate(checkout));"
 				]
 			}
 		},
@@ -216,6 +191,7 @@
 			"listen": "test",
 			"script": {
 				"type": "text/javascript",
+				"requests": {},
 				"exec": [
 					""
 				]
@@ -237,8 +213,7 @@
 		},
 		{
 			"key": "bookingid",
-			"value": "",
-			"type": "default"
+			"value": ""
 		}
 	]
 }
