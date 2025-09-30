@@ -22,12 +22,14 @@ pw/
 │   ├── ConfirmationPage.ts
 │   │                      # .json files that contain key: value formated data related to the pages endpoint for navigation porpuses and all the string selectors (DOM)
 │   ├── pages.json
-│   ├── selectors.json
+│   └── selectors.json
 ├── step-definitions/      # Step bindings (Cucumber + Playwright)
 │   ├──                    # Houses the step definition files that map Gherkin steps to executable code
 │   ├── login.steps.ts
-│   ├── checkout.steps.ts
-│   └── hooks.ts
+│   └── checkout.steps.ts
+├── support/                    # Cucumber support files
+│   ├── hooks.ts                # Global setup and teardown hooks (e.g., browser launch, context creation)
+│   └── world.ts                # TypeScript interface defining the shared test context
 ├── reports/               # HTML and JSON reports
 ├── test-results/          # Screenshots, traces, videos
 ├── .env                   # Environment variables (e.g., BASE_URL) 
@@ -63,7 +65,7 @@ npm run test:flaky
 ```
 
 ### 5. Run in Headed Mode for Debugging
-Edit each step-definition file file and set:
+Edit support/hooks.ts file file and set:
 ```ts
 browser = await chromium.launch({ headless: false, slowMo: 200 });
 ```

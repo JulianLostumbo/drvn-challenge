@@ -10,6 +10,7 @@
   },
   "include": [
     "step-definitions/**/*.ts",
-    "pages/**/*.ts"
+    "pages/**/*.ts",
+    "support/hooks.ts"
   ]
 }

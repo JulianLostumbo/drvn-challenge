@@ -1,45 +1,27 @@
-import { Given, When, Then, Before, After } from '@cucumber/cucumber';
-import { chromium, Browser, Page } from 'playwright';
-import { LoginPage } from '../pages/LoginPage';
-import { InventoryPage } from '../pages/InventoryPage';
+import { Given, When, Then } from '@cucumber/cucumber';
 import { expect } from '@playwright/test';
+import { TestWorld } from '../support/world';
 
-let browser: Browser;
-let page: Page;
-let loginPage: LoginPage;
-let inventoryPage: InventoryPage;
-
-Before(async () => {
-  browser = await chromium.launch({ headless: false, slowMo: 200 });
-  page = await browser.newPage();
-  loginPage = new LoginPage(page);
-  inventoryPage = new InventoryPage(page);
+Given('I open the login page', { timeout: 15000 }, async function (this: TestWorld) {
+  await this.loginPage.goto();
 });
 
-After(async () => {
-  await browser.close();
+When('I log in with {string} and {string}', async function (this: TestWorld, username: string, password: string) {
+  await this.loginPage.login(username, password);
 });
 
-Given('I open the login page', { timeout: 15000 }, async () => {
-  await loginPage.goto();
-});
+Then('I land on the inventory page and see at least one product', async function (this: TestWorld) {
+  await expect(this.page).toHaveURL(/.*inventory.html/);
 
-When('I log in with {string} and {string}', async (username: string, password: string) => {
-  await loginPage.login(username, password);
-});
+  const visible = await this.inventoryPage.isProductVisible();
 
-Then('I land on the inventory page and see at least one product', async () => {
-  await expect(page).toHaveURL(/.*inventory.html/);
-
-  const visible = await inventoryPage.isProductVisible();
-  
   await expect(visible).toBe(true);
 
-  const count = await inventoryPage.getProductCount();
+  const count = await this.inventoryPage.getProductCount();
   expect(count).toBeGreaterThan(0);
 });
 
-Then('I should see the error message {string}', async (expectedMessage: string) => {
-  const errorMessage = await loginPage.getErrorMessage();
+Then('I should see the error message {string}', async function (this: TestWorld, expectedMessage: string) {
+  const errorMessage = await this.loginPage.getErrorMessage();
   expect(errorMessage).toContain(expectedMessage);
 });
