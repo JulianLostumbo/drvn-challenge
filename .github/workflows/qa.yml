@@ -23,12 +23,11 @@ jobs:
         run: npm install -g newman
 
       - name: Run API Tests
-        working-directory: drvn-challenge/newman
         run: |
-          newman run RestfulBooker.postman_collection.json \
-          -e restful_booker.postman_environment.json \
-          --reporters cli,junit \
-          --reporter-junit-export ../../reports/api-report.xml
+          newman run ./newman/RestfulBooker.postman_collection.json \
+            -e ./newman/restful_booker.postman_environment.json \
+            --reporters cli,junit \
+            --reporter-junit-export reports/api-report.xml
 
       - name: Upload API Report
         uses: actions/upload-artifact@v4
