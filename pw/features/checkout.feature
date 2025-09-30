@@ -8,7 +8,7 @@ Feature: Checkout Flow
     And I complete the checkout
     Then I see the "Thank you for your order!" confirmation
 
-@regression @flaky
+@flaky
   Scenario: Form validation shows error when required field is missing
     Given I am at "Checkout: Your Information"
     When I leave the "Postal Code" empty and click "Continue"

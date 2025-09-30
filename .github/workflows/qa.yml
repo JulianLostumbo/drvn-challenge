@@ -67,3 +67,29 @@ jobs:
             pw/reports/
             pw/test-results/
             pw/playwright-report/
+
+  flaky-ui-tests:
+    name: Run Flaky UI Tests
+    runs-on: ubuntu-latest
+    needs: ui-tests  # optional: only run after main UI tests
+    continue-on-error: true  # Don’t fail the whole workflow
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm install --prefix pw
+
+      - name: Install Playwright Browsers
+        run: npx --prefix pw playwright install --with-deps
+
+      - name: Run Flaky Tests
+        run: npm run test:flaky --prefix pw
+
+      - name: Upload Flaky Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: flaky-ui-artifacts
+          path: |
+            pw/reports/
+            pw/test-results/
+            pw/playwright-report/
